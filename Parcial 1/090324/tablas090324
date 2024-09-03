@@ -1,0 +1,37 @@
+CREATE TABLE Clientes (
+    ClienteID INT PRIMARY KEY,
+    NombreCliente VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Ciudad VARCHAR(50)
+);
+
+CREATE TABLE Categorias (
+    CategoriaID INT PRIMARY KEY,
+    NombreCategoria VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Productos (
+    ProductoID INT PRIMARY KEY,
+    NombreProducto VARCHAR(100) NOT NULL,
+    Precio DECIMAL(10, 2) NOT NULL,
+    CategoriaID INT,
+    FOREIGN KEY (CategoriaID) REFERENCES Categorias(CategoriaID)
+);
+
+CREATE TABLE Ordenes (
+    OrdenID INT PRIMARY KEY,
+    FechaOrden DATE NOT NULL,
+    MontoTotal DECIMAL(10, 2) NOT NULL,
+    ClienteID INT,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
+);
+
+CREATE TABLE DetalleOrden (
+    DetalleID INT PRIMARY KEY,
+    OrdenID INT,
+    ProductoID INT,
+    Cantidad INT NOT NULL,
+    PrecioUnitario DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (OrdenID) REFERENCES Ordenes(OrdenID),
+    FOREIGN KEY (ProductoID) REFERENCES Productos(ProductoID)
+);

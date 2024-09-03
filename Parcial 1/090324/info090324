@@ -1,0 +1,37 @@
+INSERT INTO Clientes (ClienteID, NombreCliente, Email, Ciudad) VALUES
+(1, 'Juan Pérez', 'juan.perez@email.com', 'Madrid'),
+(2, 'María López', 'maria.lopez@email.com', 'Barcelona'),
+(3, 'Carlos Sánchez', 'carlos.sanchez@email.com', 'Sevilla'),
+(4, 'Laura Gómez', 'laura.gomez@email.com', 'Valencia'),
+(5, 'Ana Martínez', 'ana.martinez@email.com', 'Bilbao');
+
+INSERT INTO Categorias (CategoriaID, NombreCategoria) VALUES
+(1, 'Electrónica'),
+(2, 'Ropa'),
+(3, 'Libros'),
+(4, 'Hogar'),
+(5, 'Juguetes');
+
+INSERT INTO Productos (ProductoID, NombreProducto, Precio, CategoriaID) VALUES
+(1, 'Televisor 55"', 599.99, 1),
+(2, 'Camiseta de Algodón', 19.99, 2),
+(3, 'Libro: Introducción a SQL', 29.99, 3),
+(4, 'Silla de Oficina', 89.99, 4),
+(5, 'Robot de Juguete', 49.99, 5);
+
+INSERT INTO Ordenes (OrdenID, FechaOrden, MontoTotal, ClienteID) VALUES
+(1, '2023-08-01', 619.98, 1),
+(2, '2023-08-05', 69.98, 2),
+(3, '2023-08-10', 49.99, 3),
+(4, '2023-08-15', 679.98, 4),
+(5, '2023-08-20', 89.99, 5);
+
+INSERT INTO DetalleOrden (DetalleID, OrdenID, ProductoID, Cantidad, PrecioUnitario) VALUES
+(1, 1, 1, 1, 599.99),
+(2, 1, 2, 1, 19.99),
+(3, 2, 2, 2, 19.99),
+(4, 2, 3, 1, 29.99),
+(5, 3, 5, 1, 49.99),
+(6, 4, 1, 1, 599.99),
+(7, 4, 4, 1, 79.99),
+(8, 5, 4, 1, 89.99);
