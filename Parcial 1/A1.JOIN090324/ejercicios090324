@@ -1,0 +1,56 @@
+#Ej.1 Listado de clientes y sus ordenes 
+SELECT Clientes.NombreCliente, Clientes.Email, Ordenes.MontoTotal
+FROM Clientes
+INNER JOIN Ordenes
+ON Clientes.ClienteID= Ordenes.ClienteID;
+
+#Ej.2 Productos y Categorias
+SELECT Productos.NombreProducto, Productos.Precio, Categorias.NombreCategoria
+FROM Productos
+INNER JOIN Categorias
+ON Productos.CategoriaID= Categorias.CategoriaID;
+
+#Ej.3 Órdenes y Productos detallados
+SELECT 
+Ordenes.OrdenID, 
+Ordenes.FechaOrden, 
+Productos.NombreProducto, 
+DetalleOrden.Cantidad, 
+DetalleOrden.PrecioUnitario
+FROM  DetalleOrden
+INNER JOIN  Ordenes 
+ON DetalleOrden.OrdenID = Ordenes.OrdenID
+INNER JOIN  Productos
+ON DetalleOrden.ProductoID = Productos.ProductoID;
+
+#Ej.4 Ventas por Categoria
+SELECT 
+Categorias.NombreCategoria, 
+SUM(Ordenes.MontoTotal) AS MontoTotal
+FROM Categorias
+INNER JOIN Productos
+ON Categorias.CategoriaID = Productos.CategoriaID
+INNER JOIN DetalleOrden
+ON DetalleOrden.ProductoID = Productos.ProductoID
+INNER JOIN Ordenes
+ON DetalleOrden.OrdenID = Ordenes.OrdenID
+GROUP BY Categorias.NombreCategoria
+HAVING SUM(Ordenes.MontoTotal) > 0;
+
+#Ej.5 Productos no vendidos
+SELECT
+Productos.NombreProducto,
+Productos.Precio
+FROM Productos
+LEFT JOIN DetalleOrden
+ON Productos.ProductoID = DetalleOrden.ProductoID
+WHERE DetalleOrden.ProductoID IS NULL;
+
+#Ej.6 Clientes sin ordenes
+SELECT 
+Clientes.NombreCliente,
+Clientes.Ciudad
+FROM Clientes
+LEFT JOIN Ordenes
+ON Clientes.ClienteID=Ordenes.ClienteID
+WHERE Ordenes.ClienteID IS NULL;

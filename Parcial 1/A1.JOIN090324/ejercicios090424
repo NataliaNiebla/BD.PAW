@@ -1,0 +1,9 @@
+#Ej.1 Consulta que muestra NombreCliente, FechaOrden y Ciudad ordenados por fecha descendente
+SELECT 
+Clientes.NombreCliente, 
+Clientes.Ciudad,
+Ordenes.FechaOrden
+FROM Clientes
+INNER JOIN Ordenes
+ON Clientes.ClienteID=Ordenes.ClienteID
+ORDER BY FechaOrden DESC;
