@@ -1,0 +1,58 @@
+CREATE TABLE Aerolineas (
+    AerolineaID INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    Pais_Origen VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Aviones (
+    AvionID INT PRIMARY KEY AUTO_INCREMENT,
+    Modelo VARCHAR(50) NOT NULL,
+    Capacidad INT NOT NULL,
+    Año_Fabricacion INT NOT NULL
+);
+
+CREATE TABLE Vuelos (
+    VueloID INT PRIMARY KEY AUTO_INCREMENT,
+    Codigo VARCHAR(10) UNIQUE NOT NULL,
+    Salida VARCHAR(100) NOT NULL,
+    Destino VARCHAR(100) NOT NULL,
+    AvionID INT,
+    AerolineaID INT,
+    FOREIGN KEY (AvionID) REFERENCES Aviones(AvionID),
+    FOREIGN KEY (AerolineaID) REFERENCES Aerolineas(AerolineaID)
+);
+
+CREATE TABLE Pasajeros (
+    PasajeroID INT PRIMARY KEY AUTO_INCREMENT,
+    Nombres VARCHAR(100) NOT NULL,
+    Apellidos VARCHAR(100) NOT NULL, 
+    CURP VARCHAR(20) UNIQUE NOT NULL, 
+    Telefono VARCHAR(150)
+);
+
+CREATE TABLE Reservaciones (
+    ReservaID INT PRIMARY KEY AUTO_INCREMENT,
+    Clase VARCHAR(20) NOT NULL,
+    Asiento VARCHAR(10) NOT NULL,
+    Estado VARCHAR(20) NOT NULL,
+    PasajeroID INT,
+    VueloID INT,
+    FOREIGN KEY (PasajeroID) REFERENCES Pasajeros(PasajeroID),
+    FOREIGN KEY (VueloID) REFERENCES Vuelos(VueloID)
+);
+
+CREATE TABLE Tripulantes (
+    TripulanteID INT PRIMARY KEY AUTO_INCREMENT,
+    Nombres VARCHAR(100) NOT NULL,
+    Apellidos VARCHAR(100) NOT NULL, 
+    Rol VARCHAR(50) NOT NULL,
+    Licencia VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE Tripulacion_Vuelo (
+    TripulanteID INT,
+    VueloID INT,
+    PRIMARY KEY (TripulanteID, VueloID),
+    FOREIGN KEY (TripulanteID) REFERENCES Tripulantes(TripulanteID),
+    FOREIGN KEY (VueloID) REFERENCES Vuelos(VueloID)
+);

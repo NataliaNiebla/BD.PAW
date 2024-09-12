@@ -1,0 +1,50 @@
+CREATE TABLE Alumnos (
+    AlumnoID INT PRIMARY KEY,
+    NombreAlumno VARCHAR(35) NOT NULL,
+    ApellidoPaternoAlumno VARCHAR(35) NOT NULL,
+    ApellidoMaternoAlumno VARCHAR(35) NOT NULL,
+    Matricula INT NOT NULL UNIQUE,
+    Telefono BIGINT NOT NULL,  
+    FechaNacimiento DATE NOT NULL,
+    Ciudad VARCHAR(50)
+);
+
+CREATE TABLE Cursos (
+    CursoID INT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Codigo VARCHAR(20) NOT NULL,
+    DuracionHoras INT,
+    Grado VARCHAR(30) NOT NULL UNIQUE
+);
+
+CREATE TABLE Inscripción (
+    InscripciónID INT PRIMARY KEY,
+    AlumnoID INT,         
+    CursoID INT, 
+    FechaInscripcion DATE NOT NULL,
+    CalificacionFinal DECIMAL(5, 2) NOT NULL,
+    FOREIGN KEY (AlumnoID) REFERENCES Alumnos(AlumnoID),
+    FOREIGN KEY (CursoID) REFERENCES Cursos(CursoID)
+);
+
+CREATE TABLE Profesores (
+    ProfesorID INT PRIMARY KEY,
+    NombreProfesor VARCHAR(35) NOT NULL,
+    ApellidoPaternoProfesor VARCHAR(35) NOT NULL,
+    ApellidoMaternProfesor VARCHAR(35) NOT NULL,
+    NumEmpleado INT NOT NULL UNIQUE,
+    Telefono BIGINT NOT NULL,  
+    Especializacion VARCHAR(50)
+);
+
+CREATE TABLE DetalleCurso (
+    DetalleID INT PRIMARY KEY,
+    ProfesorID INT,        
+    CursoID INT,  
+    Horario VARCHAR(50) NOT NULL,
+    Salon VARCHAR(50) NOT NULL,
+    FOREIGN KEY (ProfesorID) REFERENCES Profesores(ProfesorID),
+    FOREIGN KEY (CursoID) REFERENCES Cursos(CursoID)
+);
+
+

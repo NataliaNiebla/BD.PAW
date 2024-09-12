@@ -1,0 +1,64 @@
+INSERT INTO Alumnos (AlumnoID, NombreAlumno, ApellidoPaternoAlumno, ApellidoMaternoAlumno, Matricula, Telefono, FechaNacimiento, Ciudad)
+VALUES
+(1, 'Juan', 'Pérez', 'López', 1001, 5544332211, '2000-05-10', 'Ciudad de México'),
+(2, 'María', 'Gómez', 'Hernández', 1002, 5544332212, '1999-08-22', 'Guadalajara'),
+(3, 'Carlos', 'Ramírez', 'Martínez', 1003, 5544332213, '2001-01-15', 'Monterrey'),
+(4, 'Ana', 'Sánchez', 'Rodríguez', 1004, 5544332214, '1998-12-30', 'Puebla'),
+(5, 'Luis', 'Torres', 'González', 1005, 5544332215, '2002-07-19', 'Tijuana'),
+(6, 'Sofía', 'Mendoza', 'Rojas', 1006, 5544332216, '2000-11-25', 'Querétaro'),
+(7, 'Miguel', 'Castro', 'Ortiz', 1007, 5544332217, '2001-03-03', 'León'),
+(8, 'Elena', 'Flores', 'Morales', 1008, 5544332218, '1999-06-12', 'Aguascalientes'),
+(9, 'Diego', 'Luna', 'Núñez', 1009, 5544332219, '1997-10-07', 'Saltillo'),
+(10, 'Lucía', 'Jiménez', 'Castillo', 1010, 5544332220, '2003-02-17', 'Mérida');
+
+INSERT INTO Cursos (CursoID, Nombre, Codigo, DuracionHoras, Grado)
+VALUES
+(1, 'Matemáticas Avanzadas', 'MATH101', 40, 'Licenciatura'),
+(2, 'Historia Universal', 'HIST102', 35, 'Licenciatura'),
+(3, 'Física Teórica', 'PHY103', 50, 'Licenciatura'),
+(4, 'Programación en Python', 'CS104', 45, 'Licenciatura'),
+(5, 'Química General', 'CHEM105', 30, 'Licenciatura'),
+(6, 'Cálculo Diferencial', 'MATH201', 60, 'Maestría'),
+(7, 'Arte Contemporáneo', 'ART202', 25, 'Licenciatura'),
+(8, 'Economía Global', 'ECON203', 40, 'Licenciatura'),
+(9, 'Introducción a la Filosofía', 'PHIL204', 20, 'Licenciatura'),
+(10, 'Análisis Estadístico', 'STAT205', 55, 'Maestría');
+
+INSERT INTO Inscripción (InscripciónID, AlumnoID, CursoID, FechaInscripcion, CalificacionFinal)
+VALUES
+(1, 1, 1, '2023-01-15', 9.5),
+(2, 2, 2, '2023-02-10', 8.0),
+(3, 3, 3, '2023-03-05', 7.8),
+(4, 4, 4, '2023-04-12', 9.0),
+(5, 5, 5, '2023-05-25', 8.9),
+(6, 6, 6, '2023-06-01', 9.7),
+(7, 7, 7, '2023-07-19', 8.5),
+(8, 8, 8, '2023-08-25', 7.9),
+(9, 9, 9, '2023-09-05', 9.2),
+(10, 10, 10, '2023-10-15', 8.8);
+
+INSERT INTO Profesores (ProfesorID, NombreProfesor, ApellidoPaternoProfesor, ApellidoMaternProfesor, NumEmpleado, Telefono, Especializacion)
+VALUES
+(1, 'Roberto', 'Álvarez', 'García', 3001, 5566778899, 'Matemáticas'),
+(2, 'Laura', 'Fernández', 'Martínez', 3002, 5566778898, 'Historia'),
+(3, 'Javier', 'Gutiérrez', 'López', 3003, 5566778897, 'Física'),
+(4, 'Claudia', 'Hernández', 'Sánchez', 3004, 5566778896, 'Programación'),
+(5, 'Daniel', 'Iglesias', 'Gómez', 3005, 5566778895, 'Química'),
+(6, 'María', 'Jiménez', 'Rodríguez', 3006, 5566778894, 'Economía'),
+(7, 'Luis', 'Ortega', 'Torres', 3007, 5566778893, 'Arte'),
+(8, 'Patricia', 'Pérez', 'Vargas', 3008, 5566778892, 'Filosofía'),
+(9, 'Carlos', 'Quintero', 'Díaz', 3009, 5566778891, 'Estadística'),
+(10, 'Ana', 'Serrano', 'Núñez', 3010, 5566778890, 'Cálculo');
+
+INSERT INTO DetalleCurso (DetalleID, ProfesorID, CursoID, Horario, Salon)
+VALUES
+(1, 1, 1, 'Lunes 8:00-10:00', 'Aula 101'),
+(2, 2, 2, 'Martes 10:00-12:00', 'Aula 202'),
+(3, 3, 3, 'Miércoles 12:00-14:00', 'Aula 303'),
+(4, 4, 4, 'Jueves 14:00-16:00', 'Aula 404'),
+(5, 5, 5, 'Viernes 16:00-18:00', 'Aula 505'),
+(6, 6, 6, 'Lunes 8:00-10:00', 'Aula 106'),
+(7, 7, 7, 'Martes 10:00-12:00', 'Aula 207'),
+(8, 8, 8, 'Miércoles 12:00-14:00', 'Aula 308'),
+(9, 9, 9, 'Jueves 14:00-16:00', 'Aula 409'),
+(10, 10, 10, 'Viernes 16:00-18:00', 'Aula 510');

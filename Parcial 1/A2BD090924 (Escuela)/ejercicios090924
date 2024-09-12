@@ -1,0 +1,28 @@
+#Ej.1 filtrar profesores que imparten más de un curso
+SELECT profesores.Nombre, profesores.Apellido, COUNT(detallecurso.FK_curso) AS materias
+FROM profesores 
+JOIN detallecurso 
+ON profesores.idProfesores=detallecurso.FK_profesor
+GROUP BY profesores.idProfesores
+HAVING profesores.materias>2
+;
+
+#Ej.2 Alumnos con la calificación más alta del curso
+SELECT Alumnos.Nombre, Alumnos.Apellido, Cursos.Nombre, Inscripciones.calificacion
+FROM Inscripciones
+JOIN Alumnos ON Inscripciones.FK_Alumno = Alumnos.idAlumno
+JOIN Cursos ON Inscripciones.FK_Curso = Cursos.idCursos
+WHERE Inscripciones.calificacion = (
+SELECT MAX(I2.calificacion)
+FROM Inscripciones I2
+WHERE I2.FK_Curso = Inscripciones.FK_Curso
+);
+
+#Ej.3 Por curso los alumnos que estan inscritos y horas por materia
+SELECT 
+C.Nombre AS Curso,
+COUNT(I.FK_Alumno) AS Cantidad_Alumnos_Inscritos,
+C.Duracion AS Duracion_Curso
+FROM Cursos C
+LEFT JOIN Inscripciones I ON C.idCursos = I.FK_Curso
+GROUP BY C.Nombre, C.Duracion;

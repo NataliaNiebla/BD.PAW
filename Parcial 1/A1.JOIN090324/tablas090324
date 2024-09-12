@@ -1,7 +1,7 @@
 CREATE TABLE Clientes (
     ClienteID INT PRIMARY KEY,
     NombreCliente VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) NOT NULL,
+    Email VARCHAR (100) NOT NULL,
     Ciudad VARCHAR(50)
 );
 

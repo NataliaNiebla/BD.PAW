@@ -1,0 +1,17 @@
+
+SELECT 
+Ordenes.OrdenID, 
+Ordenes.FechaOrden, 
+Ordenes.MontoTotal
+FROM Ordenes
+WHERE Ordenes.MontoTotal > (SELECT AVG(MontoTotal) FROM Ordenes);
+
+
+SELECT 
+DetalleOrden.DetalleID, 
+DetalleOrden.OrdenID, 
+DetalleOrden.ProductoID, 
+DetalleOrden.Cantidad, 
+DetalleOrden.PrecioUnitario
+FROM DetalleOrden
+WHERE DetalleOrden.PrecioUnitario = (SELECT MAX(PrecioUnitario) FROM DetalleOrden);
