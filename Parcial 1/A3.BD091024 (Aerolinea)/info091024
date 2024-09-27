@@ -42,27 +42,27 @@ INSERT INTO Aviones (Modelo, Capacidad, Año_Fabricacion) VALUES
 ('Airbus A310', 280, 2003),
 ('Boeing 727', 189, 2001);
 
-INSERT INTO Vuelos (Codigo, Salida, Destino, AvionID, AerolineaID) VALUES
-('AM001', 'Ciudad de México', 'Los Ángeles', 1, 1),
-('VO002', 'Guadalajara', 'Chicago', 2, 2),
-('IJ003', 'Monterrey', 'Nueva York', 3, 3),
-('AA004', 'Miami', 'Londres', 4, 4),
-('DL005', 'Atlanta', 'París', 5, 5),
-('UA006', 'Houston', 'Tokio', 6, 6),
-('AC007', 'Toronto', 'Vancouver', 7, 7),
-('LH008', 'Fráncfort', 'Múnich', 8, 8),
-('BA009', 'Londres', 'Sídney', 9, 9),
-('AF010', 'París', 'Singapur', 10, 10),
-('IB011', 'Madrid', 'Ciudad de México', 11, 11),
-('QF012', 'Melbourne', 'Los Ángeles', 12, 12),
-('EK013', 'Dubái', 'Barcelona', 13, 13),
-('TK014', 'Estambul', 'Roma', 14, 14),
-('KL015', 'Ámsterdam', 'San Francisco', 15, 15),
-('QR016', 'Doha', 'Bangkok', 16, 16),
-('SQ017', 'Singapur', 'Tokio', 17, 17),
-('AZ018', 'Roma', 'Buenos Aires', 18, 18),
-('AV019', 'Bogotá', 'Lima', 19, 19),
-('CM020', 'Panamá', 'Caracas', 20, 20);
+INSERT INTO Vuelos (Codigo, Salida, Destino, AvionID, AerolineaID, Fecha) VALUES
+('AM001', 'Ciudad de México', 'Los Ángeles', 1, 1, '2024-09-25'),
+('VO002', 'Guadalajara', 'Chicago', 2, 2, '2024-09-26'),
+('IJ003', 'Monterrey', 'Nueva York', 3, 3, '2024-09-27'),
+('AA004', 'Miami', 'Londres', 4, 4, '2024-09-28'),
+('DL005', 'Atlanta', 'París', 5, 5, '2024-09-29'),
+('UA006', 'Houston', 'Tokio', 6, 6, '2024-09-30'),
+('AC007', 'Toronto', 'Vancouver', 7, 7, '2024-10-01'),
+('LH008', 'Fráncfort', 'Múnich', 8, 8, '2024-10-02'),
+('BA009', 'Londres', 'Sídney', 9, 9, '2024-10-03'),
+('AF010', 'París', 'Singapur', 10, 10, '2024-10-04'),
+('IB011', 'Madrid', 'Ciudad de México', 11, 11, '2024-10-05'),
+('QF012', 'Melbourne', 'Los Ángeles', 12, 12, '2024-10-06'),
+('EK013', 'Dubái', 'Barcelona', 13, 13, '2024-10-07'),
+('TK014', 'Estambul', 'Roma', 14, 14, '2024-10-08'),
+('KL015', 'Ámsterdam', 'San Francisco', 15, 15, '2024-10-09'),
+('QR016', 'Doha', 'Bangkok', 16, 16, '2024-10-10'),
+('SQ017', 'Singapur', 'Tokio', 17, 17, '2024-10-11'),
+('AZ018', 'Roma', 'Buenos Aires', 18, 18, '2024-10-12'),
+('AV019', 'Bogotá', 'Lima', 19, 19, '2024-10-13'),2
+('CM020', 'Panamá', 'Caracas', 20, 20, '2024-10-14');
 
 INSERT INTO Pasajeros (Nombres, Apellidos, CURP, Telefono) VALUES
 ('Juan', 'Pérez', 'PEMJ840623HDFLRN04', '5551234567'),

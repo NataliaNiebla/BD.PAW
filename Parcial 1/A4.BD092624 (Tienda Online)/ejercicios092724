@@ -1,0 +1,17 @@
+#Ej.1 Listar clientes con los pedidos y los productos que compraron en promociones
+SELECT clientes.IDcliente, pedidos.IDpedido, productos.NombreProducto, promociones.DescripcionPromo, promociones.Descuento
+FROM productos
+INNER JOIN detalles_pedidos ON productos.IDproducto = detalles_pedidos.IDproducto
+INNER JOIN pedidos ON detalles_pedidos.IDpedido = pedidos.IDpedido
+INNER JOIN clientes ON pedidos.IDcliente = clientes.IDcliente 
+INNER JOIN producto_promos ON productos.IDproducto = producto_promos.IDproducto
+INNER JOIN promociones ON producto_promos.IDpromociones = promociones.IDpromociones;
+
+
+#Ej.2 Obtener los cinco productos más vendidos, ordenados por la cantidad total vendida
+SELECT productos.NombreProducto, SUM(detalles_pedidos.Cantidad) AS CantidadTotal
+FROM productos
+INNER JOIN detalles_pedidos ON productos.IDproducto = detalles_pedidos.IDproducto
+GROUP BY productos.NombreProducto
+ORDER BY CantidadTotal DESC
+LIMIT 5;

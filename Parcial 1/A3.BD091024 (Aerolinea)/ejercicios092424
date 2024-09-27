@@ -1,0 +1,96 @@
+#Ej.1 Reasignar vuelos de una aerolinea cuando se elimina, si se elimina una aerolinea, los vuelos son reasignados a otra.
+DELIMITER //
+
+CREATE TRIGGER Reasignacón_Vuelos_por_cancelación
+BEFORE DELETE ON Aerolineas
+FOR EACH ROW
+BEGIN
+    DECLARE reasignacion_aerolinea INT;
+    DECLARE nueva_aerolinea INT;
+
+    SELECT AerolineaID INTO nueva_aerolinea
+    FROM Aerolineas
+    WHERE AerolineaID != OLD.AerolineaID
+    ORDER BY AerolineaID ASC
+    LIMIT 1;
+
+    IF nueva_aerolinea IS NOT NULL THEN
+        UPDATE Vuelos
+        SET AerolineaID = nueva_aerolinea
+        WHERE AerolineaID = OLD.AerolineaID;
+    ELSE
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'ERROR: No se puede eliminar la aerolínea.';
+    END IF;
+END //
+DELIMITER ;
+
+#Ej.2 Asignar automaticamente tripulantes al crear un vuelo. Cuando se inserta un nuevo vuelo, asigna tripulantes automaticamente si estan disponibles.
+DELIMITER //
+
+CREATE TRIGGER Asignar_Tripulantes_newVuelo
+AFTER INSERT ON Vuelos
+FOR EACH ROW
+BEGIN
+    DECLARE tripulanteID INT;
+
+    SELECT TripulanteID INTO tripulanteID
+    FROM Tripulantes
+    WHERE Rol = 'Piloto'
+    AND TripulanteID NOT IN (
+        SELECT TripulanteID
+        FROM Tripulacion_Vuelo
+        WHERE VueloID = New.VueloID
+    )
+    LIMIT 1;
+
+    IF tripulanteID IS NOT NULL THEN
+        INSERT INTO Tripulacion_Vuelo (TripulanteID, VueloID)
+        VALUES (tripulanteID, New.VueloID);
+    ELSE
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'ERROR: No hay pilotos disponibles.';
+    END IF;
+
+    SELECT TripulanteID INTO tripulanteID
+    FROM Tripulantes
+    WHERE Rol = 'Asistente de Vuelo'
+    AND TripulanteID NOT IN (
+        SELECT TripulanteID
+        FROM Tripulacion_Vuelo
+        WHERE VueloID = New.VueloID
+    )
+    LIMIT 1;
+
+    IF tripulanteID IS NOT NULL THEN
+        INSERT INTO Tripulacion_Vuelo (TripulanteID, VueloID)
+        VALUES (tripulanteID, New.VueloID);
+    ELSE
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'ERROR: No hay asistentes disponibles.';
+    END IF;
+END //
+DELIMITER ;
+
+#Ej.3 Restaurar la capacidad del avión al cancelar una reserva. Cuando una reserva es cancelada, la capacidad del avión debe aumentar.
+DELIMITER //
+
+CREATE TRIGGER Restaurar_Capacidad_Avion_por_cancelación
+AFTER UPDATE ON Reservaciones
+FOR EACH ROW
+BEGIN
+    DECLARE capacidad_actual INT;
+
+    IF NEW.estado = 'Cancelado' AND OLD.estado != 'Cancelado' THEN
+        SELECT capacidad INTO capacidad_actual
+        FROM Aviones
+        JOIN Vuelos ON Aviones.AvionID = Vuelos.AvionID
+        WHERE Vuelos.VueloID = NEW.VueloID;
+
+        UPDATE Aviones
+        SET capacidad = capacidad_actual + 1
+        WHERE AvionID = (SELECT AvionID FROM Vuelos WHERE AvionID = NEW.VueloID);
+    END IF;
+END//
+
+DELIMITER ;

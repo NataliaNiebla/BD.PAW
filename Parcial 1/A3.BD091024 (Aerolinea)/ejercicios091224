@@ -1,0 +1,17 @@
+Ej.1 Vuelos reservados por un pasajero mostrando el estado de la reserva y la clase (con vistas)
+CREATE VIEW Vuelos_reservados_con_estado_clase AS
+SELECT Pasajeros.PasajeroID, Pasajeros.Nombres, Pasajeros.Apellidos, Reservaciones.ReservaID, Reservaciones.Estado, Reservaciones.Clase
+FROM Pasajeros
+INNER JOIN Reservaciones 
+ON Pasajeros.PasajeroID = Reservaciones.PasajeroID;
+
+SELECT * FROM Vuelos_reservados_con_estado_clase;
+
+Ej.2 Info de los tripulantes asigandos a cada vuelo (vista: nombre, rol y licencia)
+CREATE VIEW Tripulantes_asigandos_a_cada_vuelo AS
+SELECT Tripulantes.TripulanteID, Tripulantes.Nombres, Tripulantes.Apellidos, Tripulantes.Rol, Tripulantes.Licencia, Tripulacion_Vuelo.VueloID
+FROM Tripulantes
+INNER JOIN Tripulacion_Vuelo
+ON Tripulantes.TripulanteID = Tripulacion_Vuelo.TripulanteID
+
+SELECT * FROM Tripulantes_asigandos_a_cada_vuelo;

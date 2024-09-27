@@ -1,0 +1,60 @@
+--- Sistema de ventas para una tienda en linea
+CREATE TABLE Productos (
+    IDproducto INT PRIMARY KEY AUTO_INCREMENT,
+    NombreProducto VARCHAR(100) NOT NULL,
+    DescripcionProducto VARCHAR(100) NOT NULL,
+    Precio INT NOT NULL,
+    Stock INT NOT NULL,
+    Categoria VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Promociones (
+    IDpromociones INT PRIMARY KEY AUTO_INCREMENT,
+    DescripcionPromo VARCHAR(100) NOT NULL,
+    Descuento INT NOT NULL
+);
+
+CREATE TABLE Producto_promos (
+    IDproducto_promo INT PRIMARY KEY AUTO_INCREMENT,
+    IDproducto INT,
+    IDpromociones INT,
+    FOREIGN KEY (IDproducto) REFERENCES Productos(IDproducto),
+    FOREIGN KEY (IDpromociones) REFERENCES Promociones(IDpromociones),
+    UNIQUE (IDproducto, IDpromociones)
+);
+
+CREATE TABLE Clientes (
+    IDcliente INT PRIMARY KEY AUTO_INCREMENT,
+    NombreCliente VARCHAR(100) NOT NULL,
+    ApellidoPaternoCliente VARCHAR(100) NOT NULL,
+    ApellidoMaternoCliente VARCHAR(100) NOT NULL,
+    Direccion VARCHAR(100) NOT NULL,
+    Telefono VARCHAR(100) NOT NULL,
+    Correo VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Pedidos (
+    IDpedido INT PRIMARY KEY AUTO_INCREMENT,
+    Fecha DATE NOT NULL,
+    Estado VARCHAR(100) NOT NULL,
+    IDcliente INT,
+    FOREIGN KEY (IDcliente) REFERENCES Clientes(IDcliente)
+);
+
+CREATE TABLE Pagos (
+    IDpago INT PRIMARY KEY AUTO_INCREMENT,
+    Fecha DATE NOT NULL,
+    Metodo_Pago VARCHAR(100) NOT NULL,
+    Monto INT NOT NULL,
+    IDpedido INT,
+    FOREIGN KEY (IDpedido) REFERENCES Pedidos(IDpedido)
+);
+
+CREATE TABLE Detalles_Pedidos (
+    IDdetalle INT PRIMARY KEY AUTO_INCREMENT,
+    Cantidad INT NOT NULL,
+    IDproducto INT,
+    IDpedido INT,
+    FOREIGN KEY (IDproducto) REFERENCES Productos(IDproducto),
+    FOREIGN KEY (IDpedido) REFERENCES Pedidos(IDpedido)
+);

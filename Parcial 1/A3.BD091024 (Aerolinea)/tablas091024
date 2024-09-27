@@ -18,6 +18,7 @@ CREATE TABLE Vuelos (
     Destino VARCHAR(100) NOT NULL,
     AvionID INT,
     AerolineaID INT,
+    Fecha DATE NOT NULL,  -- Agregando la columna Fecha
     FOREIGN KEY (AvionID) REFERENCES Aviones(AvionID),
     FOREIGN KEY (AerolineaID) REFERENCES Aerolineas(AerolineaID)
 );

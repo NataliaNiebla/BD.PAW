@@ -1,0 +1,79 @@
+#Ej.1 (tarea) Disparador que evite que un tripulante sea asigando a mas de un vuelo en la misma fecha
+DELIMITER //
+CREATE TRIGGER Evitar_DobleAsignacion
+BEFORE INSERT ON Tripulacion_Vuelo
+FOR EACH ROW
+BEGIN
+    DECLARE vuelo_fecha DATE;
+    DECLARE num_asignaciones INT;
+
+    SELECT Fecha INTO vuelo_fecha
+    FROM Vuelos
+    WHERE VueloID = NEW.VueloID;
+
+    SELECT COUNT(*)
+    INTO num_asignaciones
+    FROM Tripulacion_Vuelo tv
+    JOIN Vuelos v ON tv.VueloID = v.VueloID
+    WHERE tv.TripulanteID = NEW.TripulanteID
+      AND v.Fecha = vuelo_fecha;
+
+    IF num_asignaciones > 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'ERROR: Un tripulante ya está asignado a otro vuelo en la misma fecha.';
+    END IF;
+END;
+//
+DELIMITER ;
+
+
+
+CREATE TRIGGER Evitar_Eliminar_Aerolinea
+BEFORE DELETE ON Aerolineas
+FOR EACH ROW
+BEGIN
+    DECLARE num_vuelos INT;
+
+    SELECT COUNT(*)
+    INTO num_vuelos
+    FROM Vuelos
+    WHERE AerolineaID = OLD.AerolineaID
+      AND Fecha > CURDATE();
+
+    IF num_vuelos > 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'ERROR: La aerolínea aún tiene vuelos programados en el futuro.';
+    END IF;
+END;
+//
+DELIMITER ;
+
+
+
+#Ej.3 Disparador que impida la creación de una reserva si el avión asignado al vuelo ha alcanzado su capacidad maxima. La capacidad maxima se encuentra en la columna capacidad de la tabla
+DELIMITER $$
+CREATE TRIGGER Verificar_Capacidad_Vuelo
+BEFORE INSERT ON Reservaciones
+FOR EACH ROW
+BEGIN
+    DECLARE capacidad_max INT;
+    DECLARE num_reservas INT;
+
+    SELECT A.Capacidad
+    INTO capacidad_max
+    FROM Aviones A
+    JOIN Vuelos V ON A.AvionID = V.AvionID
+    WHERE V.VueloID = NEW.VueloID;
+
+    SELECT COUNT(*)
+    INTO num_reservas
+    FROM Reservaciones R
+    WHERE R.VueloID = NEW.VueloID;
+
+    IF num_reservas >= capacidad_max THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'ERROR: El avión ha alcanzado su capacidad máxima.';
+    END IF;
+END$$
+DELIMITER ;
+
